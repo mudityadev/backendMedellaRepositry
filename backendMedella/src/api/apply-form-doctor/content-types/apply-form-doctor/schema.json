@@ -1,0 +1,49 @@
+{
+  "kind": "collectionType",
+  "collectionName": "apply_form_doctors",
+  "info": {
+    "singularName": "apply-form-doctor",
+    "pluralName": "apply-form-doctors",
+    "displayName": "apply_form_doctor",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "specialty": {
+      "type": "enumeration",
+      "enum": [
+        "Cardiologist",
+        "audiologist",
+        "dentist",
+        "ENT specialist",
+        "gynecologist"
+      ]
+    },
+    "your_role": {
+      "type": "enumeration",
+      "enum": [
+        "Provider or practice owner",
+        "Office manager",
+        "Receptionist",
+        "Other"
+      ]
+    },
+    "phone_number": {
+      "type": "string"
+    },
+    "email": {
+      "type": "email",
+      "required": true,
+      "unique": true
+    },
+    "postal_code": {
+      "type": "string"
+    }
+  }
+}
