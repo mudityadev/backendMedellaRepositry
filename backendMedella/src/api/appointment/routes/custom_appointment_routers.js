@@ -4,9 +4,9 @@ module.exports = {
             "method": "POST",
             "path": "/appointments/book",
             "handler": "appointment.bookAppointment",
-            "config": {
-                auth: false,
-            }
+            // "config": {
+            //     auth: false,
+            // }
         },
         {
             "method": "POST",

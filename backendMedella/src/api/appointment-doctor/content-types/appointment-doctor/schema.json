@@ -12,16 +12,10 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "doctors": {
+    "doctor": {
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::doctor.doctor",
-      "mappedBy": "appointment_doctor"
-    },
-    "users_permissions_users": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "plugin::users-permissions.user",
       "mappedBy": "appointment_doctor"
     },
     "status": {
@@ -33,6 +27,12 @@
       ],
       "default": "pending",
       "required": true
+    },
+    "user": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "appointment_doctors"
     }
   }
 }

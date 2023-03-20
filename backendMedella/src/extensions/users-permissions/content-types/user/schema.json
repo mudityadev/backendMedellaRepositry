@@ -81,11 +81,11 @@
       "target": "api::review.review",
       "mappedBy": "users"
     },
-    "appointment_doctor": {
+    "appointment_doctors": {
       "type": "relation",
-      "relation": "manyToOne",
+      "relation": "oneToMany",
       "target": "api::appointment-doctor.appointment-doctor",
-      "inversedBy": "users_permissions_users"
+      "mappedBy": "user"
     }
   }
 }
