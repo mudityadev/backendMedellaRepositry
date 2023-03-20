@@ -1,0 +1,57 @@
+{
+  "kind": "collectionType",
+  "collectionName": "doctors",
+  "info": {
+    "singularName": "doctor",
+    "pluralName": "doctors",
+    "displayName": "doctor",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "appointment_slots": {
+      "type": "json"
+    },
+    "education": {
+      "type": "string"
+    },
+    "year_of_experience": {
+      "type": "integer"
+    },
+    "npi_number": {
+      "type": "string"
+    },
+    "name_of_doctor": {
+      "type": "string"
+    },
+    "specialty": {
+      "type": "string"
+    },
+    "email": {
+      "type": "email"
+    },
+    "password": {
+      "type": "password"
+    },
+    "doctor_id": {
+      "type": "uid",
+      "targetField": "name_of_doctor",
+      "required": false
+    },
+    "appointments": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::appointment.appointment",
+      "mappedBy": "doctors"
+    },
+    "review": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::review.review",
+      "inversedBy": "doctors"
+    }
+  }
+}
