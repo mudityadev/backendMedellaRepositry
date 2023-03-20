@@ -4,42 +4,36 @@
   "info": {
     "singularName": "appointment",
     "pluralName": "appointments",
-    "displayName": "appointment"
+    "displayName": "AppointmentSlot",
+    "description": ""
   },
   "options": {
-    "draftAndPublish": true
+    "draftAndPublish": false
   },
   "pluginOptions": {},
   "attributes": {
     "date": {
-      "type": "date"
+      "type": "date",
+      "required": true
     },
     "time": {
-      "type": "time"
-    },
-    "reason": {
-      "type": "string"
+      "type": "time",
+      "required": true
     },
     "status": {
       "type": "enumeration",
       "enum": [
-        "Pending",
-        "Confirmed",
-        "Rescheduled",
-        "Cancelled"
-      ]
-    },
-    "users": {
-      "type": "relation",
-      "relation": "manyToMany",
-      "target": "plugin::users-permissions.user",
-      "inversedBy": "appointments"
+        "available",
+        "booked"
+      ],
+      "default": "available",
+      "required": true
     },
     "doctors": {
       "type": "relation",
       "relation": "manyToMany",
       "target": "api::doctor.doctor",
-      "inversedBy": "appointments"
+      "mappedBy": "appointmentSlots"
     }
   }
 }

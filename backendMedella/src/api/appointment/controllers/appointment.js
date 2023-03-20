@@ -1,51 +1,43 @@
 'use strict';
 
-/**
- * appointment controller
- */
-
-const { createCoreController } = require('@strapi/strapi').factories;
+const { createCoreController, sanitizeEntity } = require('@strapi/strapi').factories;
 
 module.exports = createCoreController('api::appointment.appointment', ({ strapi }) => ({
 
     async bookAppointment(ctx) {
         const { doctor, date, time } = ctx.request.body;
 
-        // Find the doctor by ID
-        // const targetDoctor = await strapi.services.doctor.findOne({ id: doctor });
-
-        const targetDoctor = await strapi.db.query('api::doctor.doctor').findOne({
-            where: { id: doctor }
-        })
-
-        console.log(targetDoctor);
-        
+        const targetDoctor = await strapi.entityService.findOne('api::doctor.doctor', doctor, {
+            populate: { appointmentSlots: true }
+        });
 
         if (!targetDoctor) {
             return ctx.throw(400, 'Invalid doctor ID');
         }
 
-        // Check if the slot is available
-        const slotAvailable = targetDoctor.appointmentSlots.some(slot =>
+        const appointmentSlots = targetDoctor.appointmentSlots || [];
+        const slotAvailable = appointmentSlots.some(slot =>
             slot.date === date && slot.time === time && slot.status === 'available'
         );
 
         if (!slotAvailable) {
-            return ctx.throw(400, 'Slot not available');
+            // Filter available slots and return them
+            const availableSlots = appointmentSlots.filter(slot => slot.status === 'available');
+            return ctx.body = {
+                message: 'Slot not available',
+                availableSlots
+            };
         }
 
-        // Create appointment
-        const newAppointment = await strapi.services.appointment.create({
-            ...ctx.request.body,
-            status: 'Pending',
-            patient: ctx.state.user.id
+        const newAppointment = await strapi.entityService.create('api::appointment-doctor.appointment-doctor', {
+            data: {
+                ...ctx.request.body,
+                status: 'pending',
+                patient: ctx.state.user
+            }
         });
 
-        // Send notification to the doctor (e.g. via email or SMS)
-        // You can use a service like SendGrid, Mailgun, or Twilio for this purpose
-        // ...
         console.log(newAppointment);
-
 
         return sanitizeEntity(newAppointment, { model: strapi.models.appointment });
     },
@@ -53,22 +45,22 @@ module.exports = createCoreController('api::appointment.appointment', ({ strapi 
     async updateAppointmentStatus(ctx) {
         const { id, status } = ctx.request.body;
 
-        // Find the appointment by ID
-        const appointment = await strapi.services.appointment.findOne({ id });
+        const appointment = await strapi.entityService.findOne('api::appointment-doctor.appointment-doctor', id);
 
         if (!appointment) {
             return ctx.throw(400, 'Invalid appointment ID');
         }
 
-        // Update appointment status
-        const updatedAppointment = await strapi.services.appointment.update({ id }, { status });
-
-        // Notify the patient (e.g. via email or SMS) if the appointment has been accepted or rejected
-        // ...
-        console.log(updatedAppointment);
+        const updatedAppointment = await strapi.entityService.update('api::appointment-doctor.appointment-doctor', id, {
+            data: { status }
+        });
 
         return sanitizeEntity(updatedAppointment, { model: strapi.models.appointment });
     }
 
-
 }));
+
+
+
+
+

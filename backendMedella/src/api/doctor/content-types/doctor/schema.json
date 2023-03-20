@@ -12,9 +12,6 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "appointment_slots": {
-      "type": "json"
-    },
     "education": {
       "type": "string"
     },
@@ -41,16 +38,22 @@
       "targetField": "name_of_doctor",
       "required": false
     },
-    "appointments": {
-      "type": "relation",
-      "relation": "manyToMany",
-      "target": "api::appointment.appointment",
-      "mappedBy": "doctors"
-    },
     "review": {
       "type": "relation",
       "relation": "manyToOne",
       "target": "api::review.review",
+      "inversedBy": "doctors"
+    },
+    "appointment_doctor": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::appointment-doctor.appointment-doctor",
+      "inversedBy": "doctors"
+    },
+    "appointmentSlots": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::appointment.appointment",
       "inversedBy": "doctors"
     }
   }

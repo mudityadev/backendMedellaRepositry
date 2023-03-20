@@ -75,17 +75,17 @@
       "target": "api::insurance.insurance",
       "inversedBy": "users"
     },
-    "appointments": {
-      "type": "relation",
-      "relation": "manyToMany",
-      "target": "api::appointment.appointment",
-      "mappedBy": "users"
-    },
     "reviews": {
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::review.review",
       "mappedBy": "users"
+    },
+    "appointment_doctor": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::appointment-doctor.appointment-doctor",
+      "inversedBy": "users_permissions_users"
     }
   }
 }

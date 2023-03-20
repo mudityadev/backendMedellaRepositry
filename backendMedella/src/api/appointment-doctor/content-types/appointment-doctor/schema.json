@@ -1,0 +1,38 @@
+{
+  "kind": "collectionType",
+  "collectionName": "appointment_doctors",
+  "info": {
+    "singularName": "appointment-doctor",
+    "pluralName": "appointment-doctors",
+    "displayName": "appointment_doctor",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "doctors": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::doctor.doctor",
+      "mappedBy": "appointment_doctor"
+    },
+    "users_permissions_users": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "plugin::users-permissions.user",
+      "mappedBy": "appointment_doctor"
+    },
+    "status": {
+      "type": "enumeration",
+      "enum": [
+        "pending",
+        "confirmed",
+        "canceled"
+      ],
+      "default": "pending",
+      "required": true
+    }
+  }
+}
