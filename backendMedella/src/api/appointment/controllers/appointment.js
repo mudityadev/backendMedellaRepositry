@@ -1,11 +1,33 @@
 'use strict';
 
-const { createCoreController, sanitizeInput } = require('@strapi/strapi').factories;
+const { createCoreController } = require('@strapi/strapi').factories;
+// const { sanitizeEntity } = require("strapi-utils/lib");
+const { sanitizeEntity } = require('@strapi/utils');
 
 module.exports = createCoreController('api::appointment.appointment', ({ strapi }) => ({
 
     async bookAppointment(ctx) {
         const { doctor, date, time } = ctx.request.body;
+        const patient = ctx.state.user;
+
+        const alreadyBooked = await strapi.db.query('api::appointment-doctor.appointment-doctor').findMany({
+            where: {
+                user: patient,
+                doctor,
+            },
+        });
+        console.log();
+
+        if (alreadyBooked[0].status != "completed"){
+            if (alreadyBooked || alreadyBooked.length === 0) {
+                console.log("Error: Already Booked");
+                ctx.body = "Error: Already Booked";
+                return;
+            }
+        }
+     
+
+
 
         const targetDoctor = await strapi.entityService.findOne('api::doctor.doctor', doctor, {
             populate: { appointmentSlots: true }
@@ -14,7 +36,7 @@ module.exports = createCoreController('api::appointment.appointment', ({ strapi 
 
         if (!targetDoctor) {
             return ctx.throw(400, 'Invalid doctor ID');
-        }
+        }   
 
         const appointmentSlots = targetDoctor.appointmentSlots || [];
         const slotAvailable = appointmentSlots.some(slot =>
@@ -29,21 +51,28 @@ module.exports = createCoreController('api::appointment.appointment', ({ strapi 
                 availableSlots
             };
         }
-        const patient = ctx.state.user;
         console.log(patient);
+
+
+
+
+        const appointmentData = {
+            user: patient,
+            doctor,
+            status: 'pending',
+        };
+
+        // const sanitizedData = sanitizeEntity(appointmentData, { model: strapi.getModel('api::appointment-doctor.appointment-doctor') });
+
         const newAppointment = await strapi.entityService.create('api::appointment-doctor.appointment-doctor', {
-            data: {
-                user: patient,
-                status: 'pending',
-                doctor
-            }
+            data: appointmentData,
         });
 
         console.log(newAppointment);
 
-        ctx.body = newAppointment
+        ctx.body = newAppointment;
 
-        // return sanitizeInput(newAppointment, { model: strapi.getModel('api::appointment-doctor.appointment-doctor') });
+        // return sanitizeEntity(newAppointment, { model: strapi.getModel('api::appointment-doctor.appointment-doctor') });
     },
 
     async updateAppointmentStatus(ctx) {
@@ -59,7 +88,7 @@ module.exports = createCoreController('api::appointment.appointment', ({ strapi 
             data: { status }
         });
 
-        return sanitizeInput(updatedAppointment, { model: strapi.getModel('api::appointment-doctor.appointment-doctor') });
+        return sanitizeEntity(updatedAppointment, { model: strapi.getModel('api::appointment-doctor.appointment-doctor') });
     }
 
 }));

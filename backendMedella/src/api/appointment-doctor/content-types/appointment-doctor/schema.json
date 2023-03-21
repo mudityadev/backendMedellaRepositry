@@ -23,7 +23,8 @@
       "enum": [
         "pending",
         "confirmed",
-        "canceled"
+        "canceled",
+        "completed"
       ],
       "default": "pending",
       "required": true
