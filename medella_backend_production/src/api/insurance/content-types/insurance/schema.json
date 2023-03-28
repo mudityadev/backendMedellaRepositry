@@ -1,0 +1,32 @@
+{
+  "kind": "collectionType",
+  "collectionName": "insurances",
+  "info": {
+    "singularName": "insurance",
+    "pluralName": "insurances",
+    "displayName": "Insurance",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "description": {
+      "type": "richtext"
+    },
+    "logo": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    }
+  }
+}

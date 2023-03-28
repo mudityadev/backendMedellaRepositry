@@ -1,0 +1,15 @@
+{
+  "collectionName": "components_daily_date_daily_dates",
+  "info": {
+    "displayName": "daily_date"
+  },
+  "options": {},
+  "attributes": {
+    "date": {
+      "type": "date"
+    },
+    "slot_time": {
+      "type": "json"
+    }
+  }
+}

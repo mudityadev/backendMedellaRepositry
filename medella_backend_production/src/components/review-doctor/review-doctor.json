@@ -1,0 +1,15 @@
+{
+  "collectionName": "components_review_doctor_review_doctors",
+  "info": {
+    "displayName": "review_doctor",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "review": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::review.review"
+    }
+  }
+}

@@ -1,0 +1,58 @@
+{
+  "collectionName": "components_details_details",
+  "info": {
+    "displayName": "details",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "About": {
+      "type": "richtext"
+    },
+    "Education": {
+      "type": "richtext"
+    },
+    "Experience": {
+      "type": "richtext"
+    },
+    "insurances": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::insurance.insurance"
+    },
+    "specializations": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::specialization.specialization"
+    },
+    "Gallery": {
+      "type": "media",
+      "multiple": true,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "ProfilePicture": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "NPI_Number": {
+      "type": "string",
+      "required": true,
+      "unique": true,
+      "maxLength": 9
+    },
+    "preferences": {
+      "type": "enumeration",
+      "enum": [
+        "In-Person Meets",
+        "Video Calls"
+      ]
+    }
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "kind": "collectionType",
+  "collectionName": "appointments",
+  "info": {
+    "singularName": "appointment",
+    "pluralName": "appointments",
+    "displayName": "Appointment",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "user": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "appointments"
+    },
+    "doctor": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::doctor.doctor",
+      "inversedBy": "appointment"
+    },
+    "status": {
+      "type": "enumeration",
+      "enum": [
+        "Pending",
+        "Completed",
+        "Denied"
+      ],
+      "default": "Pending",
+      "required": true
+    },
+    "Reason_Visit": {
+      "type": "string"
+    },
+    "appointment_id": {
+      "type": "uid",
+      "targetField": "Reason_Visit",
+      "required": true
+    }
+  }
+}

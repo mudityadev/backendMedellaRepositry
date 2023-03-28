@@ -1,0 +1,57 @@
+{
+  "kind": "collectionType",
+  "collectionName": "doctors",
+  "info": {
+    "singularName": "doctor",
+    "pluralName": "doctors",
+    "displayName": "DoctorDashboard",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "date_appointment": {
+      "displayName": "appointment_date",
+      "type": "component",
+      "repeatable": true,
+      "component": "appointment-date.appointment-date"
+    },
+    "appointment": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::appointment.appointment",
+      "mappedBy": "doctor"
+    },
+    "DetailsDoctor": {
+      "displayName": "details",
+      "type": "component",
+      "repeatable": false,
+      "component": "details.details"
+    },
+    "Clinic": {
+      "displayName": "Clinic",
+      "type": "component",
+      "repeatable": false,
+      "component": "clinic.clinic"
+    },
+    "is_premium": {
+      "type": "boolean",
+      "default": false,
+      "required": true
+    },
+    "reviews": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::review.review",
+      "mappedBy": "doctor"
+    },
+    "user": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "doctordashboard"
+    }
+  }
+}

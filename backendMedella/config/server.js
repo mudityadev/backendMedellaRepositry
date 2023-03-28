@@ -7,4 +7,20 @@ module.exports = ({ env }) => ({
   webhooks: {
     populateRelations: env.bool('WEBHOOKS_POPULATE_RELATIONS', false),
   },
+
+
+  auth: {
+    strategies: {
+      google: {
+        provider: 'google',
+        plugin: 'provider',
+        conf: {
+          clientId: env('GOOGLE_CLIENT_ID'),
+          clientSecret: env('GOOGLE_CLIENT_SECRET'),
+          scope: ['email'],
+          callbackURL: env('GOOGLE_CALLBACK_URL', 'http://localhost:1337/connect/google/callback'),
+        },
+      },
+    },
+  },
 });

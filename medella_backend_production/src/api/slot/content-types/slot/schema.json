@@ -1,0 +1,19 @@
+{
+  "kind": "collectionType",
+  "collectionName": "slots",
+  "info": {
+    "singularName": "slot",
+    "pluralName": "slots",
+    "displayName": "Slot",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "time_slots": {
+      "type": "json"
+    }
+  }
+}

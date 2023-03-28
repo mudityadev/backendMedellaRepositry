@@ -1,0 +1,70 @@
+{
+  "kind": "collectionType",
+  "collectionName": "request_forms",
+  "info": {
+    "singularName": "request-form",
+    "pluralName": "request-forms",
+    "displayName": "requestform",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "first_name": {
+      "type": "string",
+      "required": true,
+      "maxLength": 255
+    },
+    "phone_number": {
+      "type": "string",
+      "required": true,
+      "unique": false,
+      "maxLength": 11
+    },
+    "email": {
+      "type": "email",
+      "unique": true,
+      "required": true,
+      "maxLength": 255
+    },
+    "zip_code": {
+      "type": "string",
+      "required": true
+    },
+    "npi_number": {
+      "type": "string",
+      "unique": true,
+      "required": true
+    },
+    "last_name": {
+      "type": "string",
+      "maxLength": 255
+    },
+    "role_practice": {
+      "type": "enumeration",
+      "enum": [
+        "Provider or practice owner",
+        "Office Manager",
+        "Receptionist",
+        "Other"
+      ]
+    },
+    "practice_or_provider_specialty": {
+      "type": "enumeration",
+      "enum": [
+        "Anesthesiologist",
+        "Chiropractor",
+        "Fertility specialist",
+        "Gynecologist",
+        "Others"
+      ]
+    },
+    "status": {
+      "type": "boolean",
+      "default": false,
+      "required": true
+    }
+  }
+}

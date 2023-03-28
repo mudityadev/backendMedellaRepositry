@@ -26,8 +26,18 @@ module.exports = createCoreController('api::appointment.appointment', ({ strapi 
             }
         }
      
+        // user doctor admin
+        // appointment
+        // search --> filtering --> service, location, specialty, insurance, slots 
+        // query api 
 
+        // homepage --> 
+        // top-doc premium --> is_paid/premium = true/false
+        // object/model --> ads -> {id, pos, pagation -->1,...,3}
+        // id--> 2, pos -> 2
+        // user -> one to many --> review --> doctor 
 
+        
 
         const targetDoctor = await strapi.entityService.findOne('api::doctor.doctor', doctor, {
             populate: { appointmentSlots: true }
@@ -52,7 +62,6 @@ module.exports = createCoreController('api::appointment.appointment', ({ strapi 
             };
         }
         console.log(patient);
-
 
 
 

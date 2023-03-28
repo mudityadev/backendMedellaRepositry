@@ -52,6 +52,12 @@
       "relation": "manyToOne",
       "target": "api::appointment-doctor.appointment-doctor",
       "inversedBy": "doctor"
+    },
+    "specialties": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::specialty.specialty",
+      "inversedBy": "doctors"
     }
   }
 }

@@ -1,0 +1,29 @@
+{
+  "collectionName": "components_clinic_clinics",
+  "info": {
+    "displayName": "Clinic",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "name_clinic": {
+      "type": "string"
+    },
+    "Address": {
+      "type": "richtext"
+    },
+    "phone_number": {
+      "type": "string",
+      "unique": true
+    },
+    "website": {
+      "type": "string",
+      "unique": true
+    },
+    "location": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::location.location"
+    }
+  }
+}
